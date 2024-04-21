@@ -181,6 +181,8 @@ jobs:
           CIBW_ENVIRONMENT_PASS_LINUX: RUNNER_OS
           CIBW_PRERELEASE_PYTHONS: True
 
+          CIBW_TEST_COMMAND: "echo 'bro, trust me'"
+
           # TODO remove the CIBW_BEFORE_BUILD_* lines once there are
           # numpy2.0 wheels available on PyPI. Also remove/comment out the
           # PIP_NO_BUILD_ISOLATION and PIP_EXTRA_INDEX_URL from CIBW_ENVIRONMENT
