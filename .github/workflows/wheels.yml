@@ -112,16 +112,13 @@ jobs:
         if: ${{ runner.os == 'Windows' && env.IS_32_BIT == 'false' }}
 
       - name: Setup macOS
+        run: brew upgrade openblas
+
+      - name: Setup macOS
         if: matrix.buildplat[0] == 'macos-11' || matrix.buildplat[0] == 'macos-14'
         run: |
           if [[ ${{ matrix.buildplat[2] }} == 'arm64' ]]; then
             # macosx_arm64
-          
-            ###### upgrade openblas 0.3.27
-            brew install openblas | brew upgrade openblas
-            # (also modified PKG_CONFIG_PATH in CIBW)
-            ######
-
 
             # use homebrew gfortran
             sudo xcode-select -s /Applications/Xcode_15.2.app            
@@ -152,7 +149,7 @@ jobs:
             CIBW="DYLD_LIBRARY_PATH=$GFORTRAN_LIB:/opt/arm64-builds/lib delocate-listdeps {wheel} &&\
               DYLD_LIBRARY_PATH=$GFORTRAN_LIB:/opt/arm64-builds/lib delocate-wheel --require-archs {delocate_archs} -w {dest_dir} {wheel}"
             echo "CIBW_REPAIR_WHEEL_COMMAND_MACOS=$CIBW" >> "$GITHUB_ENV"
-      
+
           else
             # macosx_x86_64 with OpenBLAS
             # setting SDKROOT necessary when using the gfortran compiler
