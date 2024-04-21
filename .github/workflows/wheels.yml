@@ -112,7 +112,7 @@ jobs:
         if: ${{ runner.os == 'Windows' && env.IS_32_BIT == 'false' }}
 
       - name: Setup macOS
-        run: brew upgrade openblas
+        run: brew install openblas
 
       - name: Setup macOS
         if: matrix.buildplat[0] == 'macos-11' || matrix.buildplat[0] == 'macos-14'
